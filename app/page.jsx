@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import Image from "next/image"
+import Link from "next/link"
+
 
 function Home() {
     const [pokemonCollection, setPokemonCollection] = useState([]);
@@ -53,17 +55,23 @@ function Home() {
             </div>
 
             <div className="grid grid-cols md:grid-cols-4 gap-10 p-20">
-                {currentPokemon.map((pokemon) => (
-                    <div key={pokemon.id} className="flex flex-col items-center bg-blue-900 rounded-2xl p-3">
-                        <Image 
-                            src={pokemon.image} 
-                            alt={pokemon.name} 
-                            height={100} 
-                            width={100} 
-                        />
-                        <p className="text-white">{pokemon.name}</p>
-                    </div>
-                ))}
+            {currentPokemon.map((pokemon) => (
+    <Link href={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+    <div className="flex flex-col items-center bg-blue-900 rounded-2xl p-3 cursor-pointer">
+        <p className="text-white">#{pokemon.id}</p>
+        <Image 
+            src={pokemon.image} 
+            alt={pokemon.name} 
+            height={100} 
+            width={100} 
+        />
+        <p className="text-white">{pokemon.name}</p>
+       
+    </div>
+</Link>
+
+))}
+
             </div>
 
             <div className="flex justify-center space-x-4 mt-4">
