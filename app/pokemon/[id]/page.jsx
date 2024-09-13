@@ -47,8 +47,8 @@ const PokemonDetail = ({ params }) => {
     }
 
     return (
-        <div className="p-10">
-            <div className="flex flex-col items-center bg-blue-900 rounded-2xl p-6 w-60">
+        <div className="p-5 h-screen">
+            <div className="flex flex-col items-center  mt-20 bg-blue-800   rounded-2xl p-6 w-60">
                 {pokemon.sprites?.front_default ? (
                     <Image
                         src={pokemon.sprites.front_default}
@@ -59,7 +59,7 @@ const PokemonDetail = ({ params }) => {
                 ) : (
                     <div>No image available</div>
                 )}
-                <h1 className="text-white text-2xl capitalize">{pokemon.name}</h1>
+                <h1 className="text-white text-2xl capitalize mb-3">{pokemon.name}</h1>
                 <p className="text-white">Height: {pokemon.height}</p>
                 <p className="text-white">Weight: {pokemon.weight}</p>
                 <p className="text-white">Base Experience: {pokemon.base_experience}</p>
