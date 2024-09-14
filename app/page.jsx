@@ -12,6 +12,8 @@ function Home() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(12); 
     const [debounceTimeout, setDebounceTimeout] = useState(null); 
+    const [types, setTypes] = useState([]); 
+    const [selectedType, setSelectedType] = useState("all"); 
 
     // Fetch Pokemon data
     useEffect(() => {
@@ -28,7 +30,19 @@ function Home() {
             .catch((error) => {
                 console.log("error in fetching", error);
             });
+
+// filter pokemon details by categories
+            axios.get('https://pokeapi.co/api/v2/type')
+            .then((res) => {
+                setTypes(res.data.results); 
+            })
+            .catch((error) => {
+                console.log("error in fetching types", error);
+            });
+    
     }, []);
+
+    
 
     // Debounced search effect
     useEffect(() => {
@@ -67,15 +81,27 @@ function Home() {
     return (
         <div>
             {/* Search bar */}
-            <div className="bg-emerald-600 flex flex-col md:flex-row justify-between items-center p-4">
+            <div className="bg-emerald-600 flex flex-col justify-evenly md:flex-row   items-center p-4">
                 <p className=" text-lg font-bold">Pokemon Collections</p>
                 <input
                     type="text"
-                    className="p-3 w-full md:w-80 border border-emerald-600 rounded-xl mt-4 md:mt-0"
+                    className="p-3 w-full md:w-80 border border-emerald-600 rounded-xl mt-4 md:mt-0 ml-96"
                     placeholder="Search Pokemon"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)} 
                 />
+                 <select
+                        className="p-1 w-60 md:w-24 border border-emerald-600 rounded-xl"
+                        value={selectedType}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                    >
+                        <option value="all">All Types</option>
+                        {types.map((type) => (
+                            <option key={type.name} value={type.name}>
+                                {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+                            </option>
+                        ))}
+                    </select>
             </div>
 
             {/* Pokemon grid */}
